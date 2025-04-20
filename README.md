@@ -1,66 +1,43 @@
-## Foundry
+# ⏳ TimeVault
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A simple Ethereum-based vault smart contract that allows users to lock their ETH for a specified duration. Designed for learning and experimentation.
 
-Foundry consists of:
+---
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## 📜 Description
 
-## Documentation
+**TimeVault** is a smart contract built in Solidity that allows users to deposit ETH into a vault and lock it for a defined period. After the lock period expires, users can withdraw their funds.
 
-https://book.getfoundry.sh/
+---
 
-## Usage
+## 👨‍💻 Author
 
-### Build
+- **Cipherious.xyz**
 
-```shell
-$ forge build
-```
+---
 
-### Test
+## 🚀 Features
 
-```shell
-$ forge test
-```
+- Deposit ETH with a custom lock duration.
+- Fallback and `receive()` functions support direct ETH transfers (with default lock duration).
+- Withdraw funds only after the lock time has elapsed.
+- Custom errors for gas efficiency.
+- View functions for deposited amount and lock status.
 
-### Format
+---
 
-```shell
-$ forge fmt
-```
+## 🔐 Lock Mechanism
 
-### Gas Snapshots
+- Each deposit is associated with a **lock duration** (in seconds).
+- ETH is locked until the current block timestamp surpasses the recorded unlock time.
+- Default lock duration is `1000 seconds` for fallback and direct payments.
 
-```shell
-$ forge snapshot
-```
+---
 
-### Anvil
+## 📦 Contract Functions
 
-```shell
-$ anvil
-```
+### 🔹 deposit(uint256 lockDuration)
+Deposits ETH and sets a custom lock duration.
 
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+```solidity
+function deposit(uint256 lockDuration) public payable
